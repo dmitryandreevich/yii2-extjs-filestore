@@ -113,3 +113,8 @@ a.desc:after {
 .nav > li > form > button.logout:focus {
     outline: none;
 }
+
+iframe#application{
+    width: 100%;
+    height: 800px;
+}
