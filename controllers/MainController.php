@@ -56,7 +56,7 @@ class MainController extends Controller
     }
 
 
-    public function actionGet_files_data()
+    public function actionGetFilesData()
     {
         if($this->fsAdapter) {
             $path = Yii::$app->request->post('path');
@@ -96,7 +96,7 @@ class MainController extends Controller
         exit;
     }
 
-    public function actionNew_folder()
+    public function actionNewFolder()
     {
         if($this->fsAdapter){
             $folderName = Yii::$app->request->post('name');
@@ -133,7 +133,7 @@ class MainController extends Controller
         exit;
     }
 
-    public function actionGet_content()
+    public function actionGetContent()
     {
         if($this->fsAdapter){
             $path = Yii::$app->request->post('path');
@@ -163,7 +163,7 @@ class MainController extends Controller
         exit;
     }
 
-    public function actionCreate_or_rewrite_file()
+    public function actionCreateOrRewriteFile()
     {
         if($this->fsAdapter){
             $path = Yii::$app->request->post('path');
