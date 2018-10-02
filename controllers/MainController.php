@@ -26,24 +26,19 @@ use yii\web\UploadedFile;
 class MainController extends Controller
 {
     protected $fsAdapter = null;
-    protected $filesystem = null;
     protected $fileSystemRootPath = 'filesystem';
-    protected $selStore = '';
 
     public function __construct($id, Module $module, array $config = [])
     {
         $this->enableCsrfValidation = false;
 
-        header('Access-Control-Allow-Origin: *');
-        header('Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS, FILE');
-        header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token, X-Requested-With');
+        //header('Access-Control-Allow-Origin: *');
+        //header('Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS, FILE');
+        //header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token, X-Requested-With');
 
         $this->switchAdapter();
-        //$this->filesystem = new Filesystem($this->fsAdapter);
-
 
         parent::__construct($id, $module, $config);
-
     }
 
     public function beforeAction($action)
@@ -151,8 +146,6 @@ class MainController extends Controller
 
                     if($file->getType() !== 'dir') {
                         $content = $file->read();
-                        //$mimeType = $file->getMimetype();
-                        //$basename = basename(__DIR__ . '/../' . $this->fileSystemRootPath . '/' . $path);
                         $response = [
                             'type' => $file->getMimetype(),
                             'basename' => basename(__DIR__ . '/../' . $this->fileSystemRootPath . '/' . $path),
@@ -160,7 +153,6 @@ class MainController extends Controller
                         ];
 
                         echo json_encode($response);
-                        //echo "{\"type\": \"$mimeType\", \"basename\": \"$basename\", \"content\": \"$content\"}";
                         exit;
                     }
                 }
@@ -217,24 +209,6 @@ class MainController extends Controller
             echo $pathToSave;
             exit;
         }
-    }
-
-    public function actionRefresh()
-    {
-        /*$file = $_FILES['photo'];
-        if( isset($file) ) {
-            $name = $file['name'];
-            echo '{"success": true, "file": "' . $name . '" }';
-
-            exit;
-        }*/
-
-        $ad = new Local(__DIR__ . '/../' . $this->fileSystemRootPath);
-        $fs = new Filesystem($ad);
-
-        $c = $fs->read('image.jpg');
-        $byte_array = unpack('C*', $c);
-
     }
 
     protected function switchAdapter(){
