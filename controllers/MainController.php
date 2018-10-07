@@ -27,14 +27,20 @@ class MainController extends Controller
 {
     protected $fsAdapter = null;
     protected $fileSystemRootPath = 'filesystem';
+    protected $configAwsS3 = [
+        'key' => '',
+        'secret' => '',
+        'bucket' => '',
+        'region' => 'us-east-2',
+        'version' => 'latest'
+    ];
+    protected $keyS3 = '';
+    protected $secretS3 = '';
+    protected $bucketNameS3 = '';
 
     public function __construct($id, Module $module, array $config = [])
     {
         $this->enableCsrfValidation = false;
-
-        //header('Access-Control-Allow-Origin: *');
-        //header('Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS, FILE');
-        //header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token, X-Requested-With');
 
         $this->switchAdapter();
 
@@ -117,7 +123,6 @@ class MainController extends Controller
     public function actionRename()
     {
         if($this->fsAdapter){
-
             $path = Yii::$app->request->post('path');
             $newPath = Yii::$app->request->post('newPath');
 
@@ -214,18 +219,17 @@ class MainController extends Controller
     protected function switchAdapter(){
         $selectedStore = Yii::$app->request->post('selectedStore');
 
-
         if ($selectedStore == 'S3'){
             $client = new S3Client([
                 'credentials' => [
-                    'key'    => 'AKIAJZV6CKJQVJQ5NMMA',
-                    'secret' => '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'
+                    'key'    => $this->configAwsS3['key'],
+                    'secret' => $this->configAwsS3['secret']
                 ],
-                'region' => 'us-east-2',
-                'version' => 'latest',
+                'region' => $this->configAwsS3['region'],
+                'version' => $this->configAwsS3['version'],
             ]);
 
-            $this->fsAdapter = new AwsS3Adapter($client,'maxim-filestore');
+            $this->fsAdapter = new AwsS3Adapter($client, $this->configAwsS3['bucket']);
         }else {
             $this->fsAdapter = new Local(__DIR__ . '/../' . $this->fileSystemRootPath);
         }
