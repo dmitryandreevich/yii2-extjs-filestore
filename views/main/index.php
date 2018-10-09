@@ -1,5 +1,5 @@
 <?
-    $urlToApp = yii\helpers\URL::to('/web/fileStoreApp/index.html');
-?>
+    $this->title = 'Управление файловым хранилищем';
 
-<iframe src="<?= $urlToApp ?>" frameborder="0" id="application"></iframe>
+    \app\assets\FileStoreAsset::register($this);
+

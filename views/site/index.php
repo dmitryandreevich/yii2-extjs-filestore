@@ -2,6 +2,8 @@
 
 /* @var $this yii\web\View */
 
+use yii\helpers\Url;
+
 $this->title = 'Техническое задание';
 ?>
 <div class="site-index">
@@ -10,7 +12,7 @@ $this->title = 'Техническое задание';
         <h1>Техническое задание!</h1>
 
 
-        <p><a class="btn btn-lg btn-success" href="http://t-maxim/web/index.php?r=main/index">Перейти в файловое хранилище</a></p>
+        <p><a class="btn btn-lg btn-success" href="<?= Url::to(['main/index']) ?>">Перейти в файловое хранилище</a></p>
     </div>
 
     <div class="body-content">

@@ -28,7 +28,7 @@ AppAsset::register($this);
 <body>
 <?php $this->beginBody() ?>
 
-<div class="wrap">
+<div class="wrap" style="min-height: auto">
     <?php
     NavBar::begin([
         'brandLabel' => Yii::$app->name,
@@ -54,7 +54,7 @@ AppAsset::register($this);
         <?= $content ?>
     </div>
 </div>
-
+<!--
 <footer class="footer">
     <div class="container">
         <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
@@ -62,7 +62,7 @@ AppAsset::register($this);
         <p class="pull-right"><?= Yii::powered() ?></p>
     </div>
 </footer>
-
+-->
 <?php $this->endBody() ?>
 </body>
 </html>
