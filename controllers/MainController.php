@@ -9,10 +9,10 @@
 namespace app\controllers;
 
 
+use app\models\Files;
 use League\Flysystem\Filesystem;
 use Yii;
 use yii\base\Module;
-use yii\helpers\VarDumper;
 use yii\web\Controller;
 use yii\web\UploadedFile;
 
@@ -27,7 +27,9 @@ class MainController extends Controller
     {
         $this->enableCsrfValidation = false;
 
-        $this->switchFileStore();
+        $selectedStore = Yii::$app->request->post('selectedStore');
+
+        $this->fileSystem = Yii::$app->get( $selectedStore == 'S3' ? 'awss3Fs' :'fs' );
 
         parent::__construct($id, $module, $config);
     }
@@ -142,10 +144,18 @@ class MainController extends Controller
         }
     }
 
-    protected function switchFileStore(){
-        $selectedStore = Yii::$app->request->post('selectedStore');
+    public function actionUploadToDb(){
+        $uploadedFile = UploadedFile::getInstanceByName('file');
 
-        $this->fileSystem = $selectedStore == 'S3' ? Yii::$app->get('awss3Fs') : Yii::$app->get('fs');
+        if($uploadedFile) {
+            $content = file_get_contents($uploadedFile->tempName);
+
+            $file = new Files();
+            $file->name = $uploadedFile->getBaseName();
+            $file->extension = $uploadedFile->getExtension();
+            $file->content = $content; // AS BLOB
+            $file->size = $uploadedFile->size;
+            $file->save();
+        }
     }
-
 }
