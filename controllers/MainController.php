@@ -52,9 +52,7 @@ class MainController extends Controller
         $path = Yii::$app->request->post('path');
 
         if( isset($path) && !empty($path) ) {
-
             if( isset($type) && !empty($type) ){
-
                 if( $this->fileSystem->has($path) ){
 
                     if($type === 'dir')
@@ -126,6 +124,8 @@ class MainController extends Controller
             else
                 $this->fileSystem->write($path, $content);
 
+            echo $path;
+            exit;
         }
     }
 
