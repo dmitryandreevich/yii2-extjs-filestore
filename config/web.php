@@ -15,14 +15,14 @@ $config = [
 
         'fs' => [
             'class' => 'creocoder\flysystem\LocalFilesystem',
-            'path' => '@webroot/files',
+            'path' => __DIR__ . '/../filestore',
         ],
 
         'awss3Fs' => [
             'class' => 'creocoder\flysystem\AwsS3Filesystem',
-            'key' => 'AKIAJZV6CKJQVJQ5NMMA',
-            'secret' => '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',
-            'bucket' => 'maxim-filestore',
+            'key' => '',
+            'secret' => '',
+            'bucket' => '',
             'region' => 'us-east-2',
             // 'version' => 'latest',
             // 'baseUrl' => 'your-base-url',
