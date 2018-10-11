@@ -25,8 +25,6 @@ class MainController extends Controller
 
     public function __construct($id, Module $module, array $config = [])
     {
-        $this->enableCsrfValidation = false;
-
         $selectedStore = Yii::$app->request->post('selectedStore');
 
         $this->fileSystem = Yii::$app->get( $selectedStore == 'S3' ? 'awss3Fs' :'fs' );

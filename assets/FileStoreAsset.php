@@ -14,7 +14,7 @@ use yii\web\View;
 
 class FileStoreAsset extends AssetBundle
 {
-    public $basePath = '@webroot';
-    public $baseUrl = '@web';
-    public $js = ['fileStoreApp/microloader.js','fileStoreApp/app.js'];
+    public $basePath = '@webroot/fileStoreApp';
+    public $baseUrl = '@web/fileStoreApp';
+    public $js = ['microloader.js','app.js'];
 }
